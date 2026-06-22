@@ -1,0 +1,61 @@
+#Tienda de tecnologia para registrar las ventas del dia
+
+#CONSTANTES
+PORCENTAJE_A = 0.03
+PORCENTAJE_B = 0.05
+PORCENTAJE_C = 0.08
+PORCENTAJE_D = 0.12
+
+#LISTA
+vendedores = [0]
+porcentajes = [0]
+montos = [0]
+comisiones = [0]
+
+total_ventas = 0
+total_comisiones = 0
+mayor_venta = 0
+mejor_vendedor = ""
+
+cantidad = int(input("¿Cuantas ventas registraras?"))
+
+#CALCULOS
+
+for i in range(cantidad):
+    print(f"\nVenta {i + 1}")
+    nombre = input("Vendedor: ")
+
+    monto = float(input("Monto: $"))
+    while monto <= 0:
+        print("Monto invalido.")
+        monto = float(input("Monto: $"))
+    if monto < 500:
+        porcentaje = PORCENTAJE_A
+    elif monto < 2000:
+        porcentaje = PORCENTAJE_B
+    elif monto < 5000:
+        porcentaje = PORCENTAJE_C
+    else:
+        porcentaje = PORCENTAJE_D
+    
+    comision = monto * porcentaje
+
+    vendedores.append(nombre)
+    montos.append(monto)
+    porcentajes.append(porcentaje)
+    comisiones.append(comision)
+
+    total_ventas += monto
+    total_comisiones += comision
+
+    if monto > mayor_venta:
+        mayor_venta = monto
+        mejor_venta = nombre
+
+print("---Reporte de comisones---")
+print(f"{"Vendedor":<15}{"Monto":>12}{"Comision %":>12}{"Comision $":>14}")
+for i in range(cantidad):
+    print(vendedores[i], "$", montos[i], porcentajes[i] * 100, "%", "$", comisiones[i])
+print("Total de ventas: $", total_ventas)
+print("Total de comisiones: $", total_comisiones)
+print("Mejor vendedor:", mejor_vendedor, "con $", mayor_venta)
